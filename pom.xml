@@ -43,8 +43,22 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.4</version>
         </dependency>
-
-
     </dependencies>
+
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>com.example.Main</Main-Class> <!-- Altere para a sua classe principal -->
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
