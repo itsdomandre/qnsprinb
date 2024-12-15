@@ -8,5 +8,6 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 WORKDIR /app
+COPY --from=build /app/target/*.jar /app/app.jar
 USER spring:spring
 ENTRYPOINT ["java", "-jar", "app.jar"]
