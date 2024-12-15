@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  qnspringb:
+    build:
+      context: ./ .
+      dockerfile: docker/Dockerfile
+    image: quotesandnotes:0.0.1
+    container_name: quotes_and_notes
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/log:/var/log
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: unless-stopped
+    #network_mode: host
