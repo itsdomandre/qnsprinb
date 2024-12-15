@@ -3,7 +3,7 @@ version: '3.8'
 services:
   qnspringb:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     image: quotesandnotes:0.0.1
     container_name: quotes_and_notes
