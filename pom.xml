@@ -53,6 +53,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.4.0</version>
+                <configuration>
+                    <mainClass>com.domandre.Main</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
