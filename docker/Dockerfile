@@ -1,7 +1,6 @@
 FROM openjdk:17-jdk-alpine AS builder
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY app ./
 RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 WORKDIR /app
