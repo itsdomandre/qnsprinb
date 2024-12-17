@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
-
+//TODO: @Builder Add later
 @Data
 @Entity
 @Table(name = "quotes")
