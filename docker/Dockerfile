@@ -1,10 +1,12 @@
-FROM amazoncorretto:17-alpine AS build
-RUN apk add --no-cache maven
+# Etapa de construção (build)
+FROM maven:3.9.0-openjdk-17 AS builder
 WORKDIR /app
-COPY app ./
+COPY pom.xml .
+COPY src ./src
 RUN mvn clean package -DskipTests
-RUN addgroup -S spring && adduser -S spring -G spring
-RUN mkdir -p /var/log && chown spring:spring /var/log
-USER spring:spring
-COPY --from=build /app/target/*.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Etapa de execução (run)
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=builder /app/target/qnspringb-1.0-SNAPSHOT.jar /app/app.jar
+CMD ["java", "-jar", "app.jar"]
