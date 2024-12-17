@@ -1,13 +1,10 @@
 FROM amazoncorretto:17-alpine AS build
 RUN apk add --no-cache maven
 WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:resolve
-COPY src ./src
+COPY app ./
 RUN mvn clean package -DskipTests
-FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
-WORKDIR /app
-COPY --from=build /app/target/*.jar /app/app.jar
+RUN mkdir -p /var/log && chown spring:spring /var/log
 USER spring:spring
+COPY --from=build /app/target/*.jar /app/app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
