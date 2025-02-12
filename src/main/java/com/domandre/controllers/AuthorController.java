@@ -11,18 +11,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/authors")
 
 public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/authors")
+    @GetMapping("")
     public ResponseEntity<List<Author>> getAll() {
         return ResponseEntity.ok(authorService.getAll());
     }
 
-    @PostMapping("/authors/save")
+    @PostMapping("/create")
     public ResponseEntity<Author> addAuthor(@RequestBody AuthorRequest addCardRequest) {
         Author savedAuthor = authorService.addAuthor(addCardRequest);
         return ResponseEntity.ok(savedAuthor);

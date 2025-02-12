@@ -1,13 +1,12 @@
 package com.domandre.entities;
 
 import com.domandre.entities.enums.Section;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-//TODO: @Builder Add later
 @Data
 @Entity
 @Table(name = "quotes")
@@ -23,8 +22,8 @@ public class Quote {
 
     @Enumerated(EnumType.STRING)
     private Section section;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "author_id" , nullable = true)
-//    private Integer authorId;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
 }

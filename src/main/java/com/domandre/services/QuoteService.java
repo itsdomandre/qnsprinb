@@ -1,6 +1,6 @@
 package com.domandre.services;
 
-import com.domandre.controllers.request.QuoteRequest;
+import com.domandre.DTOs.QuoteDTO;
 import com.domandre.entities.Author;
 import com.domandre.entities.Quote;
 import com.domandre.repositories.AuthorRepository;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,21 +17,33 @@ public class QuoteService {
     private final AuthorRepository authorRepository;
     private final QuoteRepository quoteRepository;
 
-    public List<Quote> getAll (Quote request){
+    public List<Quote> getAll() {
         return quoteRepository.findAll();
     }
 
-    public Quote addQuote(Quote request){
-//        Author author = authorRepository.findById(request.getAuthorId()).orElseThrow();
-        Quote quote = new Quote();
-        quote.setTitle(request.getTitle());
-        quote.setContent(request.getContent());
-        quote.setSection(request.getSection());
+    public QuoteDTO addQuote(Quote quote, Long authorId) {
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException("Author not found"));
+        quote.setAuthor(author);
+        Quote savedQuote = quoteRepository.save(quote);
 
-//        quote.setAuthorId(Set.of(request.getAuthorId()));
-//        author.setQuote(quote);
+        QuoteDTO quoteDTO = new QuoteDTO();
+        quoteDTO.setId(savedQuote.getId());
+        quoteDTO.setTitle(savedQuote.getTitle());
+        quoteDTO.setContent(savedQuote.getContent());
+        quoteDTO.setSection(savedQuote.getSection());
+        quoteDTO.setAuthorId(savedQuote.getAuthor().getId());
 
-        return quoteRepository.save(quote);
+        return quoteDTO;
     }
 
+    public List<Quote> getQuotesByAuthor (Long authorId){
+        Optional<Author> authorOptional = authorRepository.findById(authorId);
+        if (authorOptional.isPresent()) {
+            Author author = authorOptional.get();
+            return quoteRepository.findByAuthor(author);
+        }else {
+            throw new IllegalArgumentException("Author with ID " + authorId + " not found.");
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.domandre.controllers.request;
+package com.domandre.DTOs;
 
 import com.domandre.entities.enums.Section;
 import lombok.AllArgsConstructor;
@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuoteRequest {
+public class QuoteDTO {
+    private Long Id;
     private String title;
     private String content;
     private Section section;
-    private Integer authorId;
+    private Long authorId;
 }
