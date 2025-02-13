@@ -1,8 +1,8 @@
 package com.domandre.services;
 
 import com.domandre.config.JwtTokenProvider;
-import com.domandre.dtos.LoginRequest;
-import com.domandre.dtos.RegisterRequest;
+import com.domandre.controllers.request.LoginRequest;
+import com.domandre.controllers.request.RegisterRequest;
 import com.domandre.entities.User;
 import com.domandre.entities.enums.Role;
 import com.domandre.repositories.UserRepository;

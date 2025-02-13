@@ -1,6 +1,6 @@
 package com.domandre.services;
 
-import com.domandre.dtos.QuoteRequest;
+import com.domandre.controllers.request.QuoteRequest;
 import com.domandre.entities.Author;
 import com.domandre.entities.Quote;
 import com.domandre.repositories.AuthorRepository;

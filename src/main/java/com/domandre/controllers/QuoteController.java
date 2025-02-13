@@ -1,6 +1,6 @@
 package com.domandre.controllers;
 
-import com.domandre.dtos.QuoteRequest;
+import com.domandre.controllers.request.QuoteRequest;
 import com.domandre.entities.Quote;
 import com.domandre.services.QuoteService;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.domandre.controllers;
 
-import com.domandre.dtos.LoginRequest;
-import com.domandre.dtos.RegisterRequest;
+import com.domandre.controllers.request.LoginRequest;
+import com.domandre.controllers.request.RegisterRequest;
 import com.domandre.entities.User;
 import com.domandre.services.AuthService;
 import org.springframework.http.ResponseEntity;

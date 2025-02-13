@@ -1,4 +1,4 @@
-package com.domandre.dtos;
+package com.domandre.controllers.request;
 
 import com.domandre.entities.enums.Role;
 import lombok.Data;

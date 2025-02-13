@@ -1,4 +1,4 @@
-package com.domandre.dtos;
+package com.domandre.controllers.request;
 
 import lombok.Data;
 
