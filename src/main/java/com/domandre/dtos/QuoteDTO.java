@@ -1,4 +1,4 @@
-package com.domandre.DTOs;
+package com.domandre.dtos;
 
 import com.domandre.entities.enums.Section;
 import lombok.AllArgsConstructor;
