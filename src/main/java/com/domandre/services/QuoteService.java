@@ -1,6 +1,6 @@
 package com.domandre.services;
 
-import com.domandre.dtos.QuoteDTO;
+import com.domandre.dtos.QuoteRequest;
 import com.domandre.entities.Author;
 import com.domandre.entities.Quote;
 import com.domandre.repositories.AuthorRepository;
@@ -21,20 +21,20 @@ public class QuoteService {
         return quoteRepository.findAll();
     }
 
-    public QuoteDTO addQuote(Quote quote, Long authorId) {
+    public QuoteRequest addQuote(Quote quote, Long authorId) {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
         quote.setAuthor(author);
         Quote savedQuote = quoteRepository.save(quote);
 
-        QuoteDTO quoteDTO = new QuoteDTO();
-        quoteDTO.setId(savedQuote.getId());
-        quoteDTO.setTitle(savedQuote.getTitle());
-        quoteDTO.setContent(savedQuote.getContent());
-        quoteDTO.setSection(savedQuote.getSection());
-        quoteDTO.setAuthorId(savedQuote.getAuthor().getId());
+        QuoteRequest quoteRequest = new QuoteRequest();
+        quoteRequest.setId(savedQuote.getId());
+        quoteRequest.setTitle(savedQuote.getTitle());
+        quoteRequest.setContent(savedQuote.getContent());
+        quoteRequest.setSection(savedQuote.getSection());
+        quoteRequest.setAuthorId(savedQuote.getAuthor().getId());
 
-        return quoteDTO;
+        return quoteRequest;
     }
 
     public List<Quote> getQuotesByAuthor (Long authorId){

@@ -23,12 +23,12 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
         User user = authService.register(registerRequest);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok("Utilizador criado com sucesso!");
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String token = authService.login(loginRequest);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok("Usuário: " + loginRequest.getUsername() + " logado com sucesso. \nToken: " + token);
     }
 }

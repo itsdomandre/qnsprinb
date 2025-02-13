@@ -1,6 +1,6 @@
 package com.domandre.controllers;
 
-import com.domandre.dtos.QuoteDTO;
+import com.domandre.dtos.QuoteRequest;
 import com.domandre.entities.Quote;
 import com.domandre.services.QuoteService;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,9 @@ public class QuoteController {
         return ResponseEntity.ok(quotes);
     }
 
-    @PostMapping("/add/{authorId}")
-    public ResponseEntity<QuoteDTO> addQuote (@RequestBody Quote quote, @PathVariable Long authorId) {
-        QuoteDTO savedQuoteDTO = quoteService.addQuote(quote, authorId);
-        return ResponseEntity.ok(savedQuoteDTO);
+    @PostMapping("/create/{authorId}")
+    public ResponseEntity<QuoteRequest> addQuote (@RequestBody Quote quote, @PathVariable Long authorId) {
+        QuoteRequest savedQuoteRequest = quoteService.addQuote(quote, authorId);
+        return ResponseEntity.ok(savedQuoteRequest);
     }
 }

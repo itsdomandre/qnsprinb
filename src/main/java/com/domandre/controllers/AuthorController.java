@@ -23,9 +23,22 @@ public class AuthorController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Author> addAuthor(@RequestBody AuthorRequest addCardRequest) {
-        Author savedAuthor = authorService.addAuthor(addCardRequest);
+    public ResponseEntity<Author> addAuthor(@RequestBody AuthorRequest request) {
+        Author savedAuthor = authorService.addAuthor(request);
         return ResponseEntity.ok(savedAuthor);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequest request) {
+        Author updatedAuthor = authorService.updateAuthor(id, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteAuthor (@PathVariable Long id){
+        authorService.deleteAuthor(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

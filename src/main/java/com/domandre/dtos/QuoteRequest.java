@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuoteDTO {
+public class QuoteRequest {
     private Long Id;
     private String title;
     private String content;
