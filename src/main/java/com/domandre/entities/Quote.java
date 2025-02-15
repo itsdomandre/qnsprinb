@@ -16,13 +16,10 @@ public class Quote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String title;
     private String content;
-
     @Enumerated(EnumType.STRING)
     private Section section;
-
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;

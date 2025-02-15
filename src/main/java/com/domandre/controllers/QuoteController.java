@@ -32,7 +32,7 @@ public class QuoteController {
 
     @PostMapping("/create/{authorId}")
     public ResponseEntity<QuoteRequest> addQuote (@RequestBody Quote quote, @PathVariable Long authorId) {
-        QuoteRequest savedQuoteRequest = quoteService.addQuote(quote, authorId);
-        return ResponseEntity.ok(savedQuoteRequest);
+        QuoteRequest savedQuote = quoteService.addQuote(quote, authorId);
+        return ResponseEntity.ok(savedQuote);
     }
 }
