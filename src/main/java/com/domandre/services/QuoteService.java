@@ -41,4 +41,17 @@ public class QuoteService {
             throw new IllegalArgumentException("Author with ID " + authorId + " not found.");
         }
     }
+
+    public Quote updateQuote(Long id, QuoteRequest request) {
+        Quote quote = quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("Quote Id not found"));
+        quoteMapper.updateFromDTO(quote, request);
+
+        return quoteRepository.save(quote);
+    }
+
+    public void deleteQuote (Long id){
+        if (quoteRepository.existsById(id)) {
+            quoteRepository.deleteById(id);
+        }
+    }
 }

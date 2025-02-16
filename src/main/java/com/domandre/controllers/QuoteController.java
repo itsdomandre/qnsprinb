@@ -35,4 +35,16 @@ public class QuoteController {
         QuoteRequest savedQuote = quoteService.addQuote(quote, authorId);
         return ResponseEntity.ok(savedQuote);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Quote> updateQuote (@PathVariable Long id, @RequestBody QuoteRequest request){
+        Quote updatedQuote = quoteService.updateQuote(id, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteQuote (@PathVariable Long id){
+        quoteService.deleteQuote(id);
+        return ResponseEntity.noContent().build();
+    }
 }
