@@ -1,5 +1,6 @@
 package com.domandre.controllers.request;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,8 @@ import org.springframework.lang.Nullable;
 @NoArgsConstructor
 
 public class AuthorRequest {
+    @NotEmpty(message = "Author is required")
     private String name;
-    @Nullable
+    @NotEmpty(message = "Minimum 10 characters for description")
     private String description;
 }
