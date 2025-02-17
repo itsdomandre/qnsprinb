@@ -23,21 +23,4 @@ public class QuoteMapper {
 
         return quoteRequest;
     }
-
-    public void updateFromDTO (Quote quote, QuoteRequest request){
-        if (request.getTitle() != null) {
-            quote.setTitle(request.getTitle());
-        }
-        if (request.getContent() != null){
-            quote.setContent(request.getContent());
-        }
-        if (request.getSection() != null) {
-            quote.setSection(request.getSection());
-        }
-        if(request.getAuthorId() != null ) {
-            Author author = authorRepository.findById(request.getAuthorId())
-                    .orElseThrow(()-> new RuntimeException("Author not find"));
-            quote.setAuthor(author);
-        }
-    }
 }

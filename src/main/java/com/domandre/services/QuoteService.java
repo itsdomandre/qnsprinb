@@ -23,13 +23,17 @@ public class QuoteService {
         return quoteRepository.findAll();
     }
 
-    public QuoteRequest addQuote(Quote quote, Long authorId) {
+    public Quote addQuote(QuoteRequest request, Long authorId) {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
-        quote.setAuthor(author);
-        Quote savedQuote = quoteRepository.save(quote);
+        Quote quote = Quote.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .section(request.getSection())
+                .author(author)
+                .build();
 
-        return quoteMapper.toDTO(savedQuote);
+        return quoteRepository.save(quote);
     }
 
     public List<Quote> getQuotesByAuthor (Long authorId){
@@ -43,9 +47,17 @@ public class QuoteService {
     }
 
     public Quote updateQuote(Long id, QuoteRequest request) {
-        Quote quote = quoteRepository.findById(id).orElseThrow(() -> new RuntimeException("Quote Id not found"));
-        quoteMapper.updateFromDTO(quote, request);
+        Quote quote = quoteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quote Id not found"));
 
+        if (request.getTitle() != null) quote.setTitle(request.getTitle());
+        if (request.getContent() != null) quote.setContent(request.getContent());
+        if (request.getSection() != null) quote.setSection(request.getSection());
+        if (request.getAuthorId() != null) {
+            Author author = authorRepository.findById(request.getAuthorId())
+                    .orElseThrow(() -> new RuntimeException("Author not found"));
+            quote.setAuthor(author);
+        }
         return quoteRepository.save(quote);
     }
 

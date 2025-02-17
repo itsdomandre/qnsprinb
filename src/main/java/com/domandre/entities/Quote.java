@@ -3,11 +3,13 @@ package com.domandre.entities;
 import com.domandre.entities.enums.Section;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Builder
 @Table(name = "quotes")
 @AllArgsConstructor
 @NoArgsConstructor
