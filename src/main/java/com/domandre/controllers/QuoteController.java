@@ -1,8 +1,10 @@
 package com.domandre.controllers;
 
 import com.domandre.controllers.request.QuoteRequest;
+import com.domandre.dtos.QuoteDTO;
 import com.domandre.entities.Quote;
 import com.domandre.services.QuoteService;
+import com.domandre.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,35 +18,42 @@ import java.util.List;
 
 public class QuoteController {
     private final QuoteService quoteService;
+    private final UserService userService;
 
     @GetMapping("")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<Quote>> getQuotes(){
-        List<Quote> quotes = quoteService.getAll();
+    public ResponseEntity<List<QuoteDTO>> getQuotes() {
+        List<QuoteDTO> quotes = quoteService.getAll();
         return ResponseEntity.ok(quotes);
     }
 
     @GetMapping("/author/{authorId}")
-    public ResponseEntity<List<Quote>> getQuotesByAuthor (@PathVariable Long authorId){
+    public ResponseEntity<List<Quote>> getQuotesByAuthor(@PathVariable Long authorId) {
         List<Quote> quotes = quoteService.getQuotesByAuthor(authorId);
         return ResponseEntity.ok(quotes);
     }
 
-    @PostMapping("/create/{authorId}")
-    public ResponseEntity<Quote> addQuote (@RequestBody QuoteRequest request, @PathVariable Long authorId) {
-        Quote savedQuote = quoteService.addQuote(request, authorId);
+    @PostMapping("/create")
+    public ResponseEntity<QuoteDTO> addQuote(@RequestBody QuoteRequest request) {
+        QuoteDTO savedQuote = quoteService.addQuote(request);
         return ResponseEntity.ok(savedQuote);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Quote> updateQuote (@PathVariable Long id, @RequestBody QuoteRequest request){
+    public ResponseEntity<Quote> updateQuote(@PathVariable Long id, @RequestBody QuoteRequest request) {
         Quote updatedQuote = quoteService.updateQuote(id, request);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteQuote (@PathVariable Long id){
+    public ResponseEntity<Void> deleteQuote(@PathVariable Long id) {
         quoteService.deleteQuote(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/my-quotes")
+    public ResponseEntity<List<QuoteDTO>> myQuotes() {
+        List<QuoteDTO> quotes = quoteService.getMyQuotes();
+        return ResponseEntity.ok(quotes);
     }
 }

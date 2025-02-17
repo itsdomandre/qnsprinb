@@ -1,7 +1,7 @@
 package com.domandre.filters;
 
 import com.domandre.config.JwtTokenProvider;
-import com.domandre.services.UserDetailsServiceImpl;
+import com.domandre.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +19,9 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider tokenProvider;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserService userDetailsService;
 
-    public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, UserDetailsServiceImpl userDetailsService) {
+    public JwtAuthenticationFilter(JwtTokenProvider tokenProvider, UserService userDetailsService) {
         this.tokenProvider = tokenProvider;
         this.userDetailsService = userDetailsService;
     }
