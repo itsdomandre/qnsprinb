@@ -1,4 +1,4 @@
-package com.domandre.controllers.response;
+package com.domandre.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

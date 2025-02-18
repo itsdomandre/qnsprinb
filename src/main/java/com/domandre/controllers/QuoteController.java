@@ -21,7 +21,7 @@ public class QuoteController {
     private final UserService userService;
 
     @GetMapping("")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<QuoteDTO>> getQuotes() {
         List<QuoteDTO> quotes = quoteService.getAll();
         return ResponseEntity.ok(quotes);

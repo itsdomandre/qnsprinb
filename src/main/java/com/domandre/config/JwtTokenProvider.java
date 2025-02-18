@@ -1,22 +1,32 @@
 package com.domandre.config;
 
-import io.jsonwebtoken.*;
+import com.domandre.entities.InvalidToken;
+import com.domandre.repositories.InvalidTokenRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
+    private final InvalidTokenRepository invalidTokenRepository;
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private final long jwtExpirationInMs = 86400000; // 1 dia
 
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date now = new Date();
+        long jwtExpirationInMs = 3600000;
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
@@ -39,10 +49,28 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
+            if (invalidTokenRepository.existsByToken(token)) {
+                return false;
+            }
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
             return false;
         }
     }
+
+    public void invalidateToken(String token) {
+        invalidTokenRepository.save(new InvalidToken(token, getExpirationDateFromJWT(token)));
+    }
+
+    public Date getExpirationDateFromJWT(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getExpiration();
+    }
+
 }
