@@ -56,4 +56,10 @@ public class QuoteController {
         List<QuoteDTO> quotes = quoteService.getMyQuotes();
         return ResponseEntity.ok(quotes);
     }
+
+    @GetMapping("/my-quotes/search")
+    public ResponseEntity<List<QuoteDTO>> searchQuotes(@RequestParam String keyword) {
+        List<QuoteDTO> quotes = quoteService.quotesByUserAndKeyword(keyword);
+        return ResponseEntity.ok(quotes);
+    }
 }

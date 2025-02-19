@@ -34,6 +34,7 @@ public class AuthorController {
         return ResponseEntity.noContent().build();
     }
 
+    // TODO: Implantaremos @PreAuthorize
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAuthor (@PathVariable Long id){
         authorService.deleteAuthor(id);

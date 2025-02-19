@@ -80,4 +80,12 @@ public class QuoteService {
             quoteRepository.deleteById(id);
         }
     }
+
+    public List<QuoteDTO> quotesByUserAndKeyword(String keyword) {
+        User user = userService.getCurrentUser();
+        List<Quote> quotes = quoteRepository.findByUserAndKeyword(user, keyword);
+        return quotes.stream()
+                .map(QuoteDTO::new)
+                .collect(Collectors.toList());
+    }
 }
