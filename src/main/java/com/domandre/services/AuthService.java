@@ -6,6 +6,7 @@ import com.domandre.controllers.request.RegisterRequest;
 import com.domandre.entities.InvalidToken;
 import com.domandre.entities.User;
 import com.domandre.entities.enums.Role;
+import com.domandre.exceptions.UserAlreadyExistsException;
 import com.domandre.repositories.InvalidTokenRepository;
 import com.domandre.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,10 @@ public class AuthService {
     private final JwtTokenProvider tokenProvider;
     private final InvalidTokenRepository invalidTokenRepository;
 
-    public User register(RegisterRequest request) {
+    public User register(RegisterRequest request) throws UserAlreadyExistsException {
+        // TODO: refactor exception to messages in GHE.class
         if (userRepository.existsByUsername(request.getUsername())){
-            throw new RuntimeException("Username is already taken");
+            throw new UserAlreadyExistsException("Username requested " + request.getUsername() + " already exists.");
         }
 
         User user = new User();

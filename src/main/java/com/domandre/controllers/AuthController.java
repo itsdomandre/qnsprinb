@@ -4,6 +4,7 @@ import com.domandre.config.JwtTokenProvider;
 import com.domandre.controllers.request.LoginRequest;
 import com.domandre.controllers.request.RegisterRequest;
 import com.domandre.entities.User;
+import com.domandre.exceptions.UserAlreadyExistsException;
 import com.domandre.repositories.UserRepository;
 import com.domandre.services.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This user already exists.");
-        }
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) throws UserAlreadyExistsException {
         User user = authService.register(request);
-        return ResponseEntity.ok("User " + "{ " + request.getUsername() + " }" + " created successfully!");
+        return ResponseEntity.ok("User " + "» " + request.getUsername() + " «" + " created successfully!");
     }
 
     @PostMapping("/login")
