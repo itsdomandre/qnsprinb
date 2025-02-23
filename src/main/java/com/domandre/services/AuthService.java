@@ -27,9 +27,8 @@ public class AuthService {
     private final InvalidTokenRepository invalidTokenRepository;
 
     public User register(RegisterRequest request) throws UserAlreadyExistsException {
-        // TODO: refactor exception to messages in GHE.class
         if (userRepository.existsByUsername(request.getUsername())){
-            throw new UserAlreadyExistsException("Username requested " + request.getUsername() + " already exists.");
+            throw new UserAlreadyExistsException();
         }
 
         User user = new User();
