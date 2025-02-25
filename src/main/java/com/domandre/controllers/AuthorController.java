@@ -3,6 +3,7 @@ package com.domandre.controllers;
 import com.domandre.controllers.request.AuthorRequest;
 import com.domandre.entities.Author;
 import com.domandre.services.AuthorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/authors")
+@SecurityRequirement(name = "bearerAuth")
 
 public class AuthorController {
 
