@@ -2,10 +2,12 @@ package com.domandre.controllers;
 
 import com.domandre.controllers.request.AuthorRequest;
 import com.domandre.entities.Author;
+import com.domandre.exceptions.ForbiddenException;
 import com.domandre.services.AuthorService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +38,9 @@ public class AuthorController {
         return ResponseEntity.noContent().build();
     }
 
-    // TODO: Implantaremos @PreAuthorize
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteAuthor (@PathVariable Long id){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteAuthor (@PathVariable Long id) throws ForbiddenException {
         authorService.deleteAuthor(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,6 +1,6 @@
 package com.domandre.entities;
 
-import com.domandre.entities.enums.Section;
+import com.domandre.enums.Section;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

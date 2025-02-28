@@ -1,7 +1,7 @@
 package com.domandre.dtos;
 
 import com.domandre.entities.Quote;
-import com.domandre.entities.enums.Section;
+import com.domandre.enums.Section;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

@@ -5,7 +5,7 @@ import com.domandre.controllers.request.LoginRequest;
 import com.domandre.controllers.request.RegisterRequest;
 import com.domandre.entities.InvalidToken;
 import com.domandre.entities.User;
-import com.domandre.entities.enums.Role;
+import com.domandre.enums.Role;
 import com.domandre.exceptions.UserAlreadyExistsException;
 import com.domandre.repositories.InvalidTokenRepository;
 import com.domandre.repositories.UserRepository;
@@ -27,10 +27,9 @@ public class AuthService {
     private final InvalidTokenRepository invalidTokenRepository;
 
     public User register(RegisterRequest request) throws UserAlreadyExistsException {
-        if (userRepository.existsByUsername(request.getUsername())){
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new UserAlreadyExistsException();
         }
-
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -47,7 +46,6 @@ public class AuthService {
                         loginRequest.getPassword()
                 )
         );
-
         return tokenProvider.generateToken(authentication);
     }
 
@@ -55,7 +53,6 @@ public class AuthService {
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);  // Remover o prefixo "Bearer "
         }
-
         if (tokenProvider.validateToken(token)) {
             InvalidToken invalidToken = new InvalidToken(token, tokenProvider.getExpirationDateFromJWT(token));
             invalidTokenRepository.save(invalidToken);

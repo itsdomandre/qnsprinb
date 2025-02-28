@@ -11,4 +11,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         return new ResponseEntity<>("User Already Exists.", HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<String> handleForbiddenException(ForbiddenException ex) {
+        return new ResponseEntity<>("User have no privileges to access this action.", HttpStatus.FORBIDDEN);
+    }
 }
