@@ -15,7 +15,6 @@ import java.util.Collections;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     @Override
@@ -31,13 +30,13 @@ public class UserService implements UserDetailsService {
     }
 
     public User getCurrentUser() {
-        org.springframework.security.core.userdetails.User principal =
-                (org.springframework.security.core.userdetails.User) SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userRepository.findByUsername(principal.getUsername())
+        if (!(principal instanceof org.springframework.security.core.userdetails.User userDetails)) {
+            throw new RuntimeException("User not authenticated");
+        }
+        return userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
 }

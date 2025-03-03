@@ -14,6 +14,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized. Invalid token or not informed");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized or Access Token Invalid");
     }
 }

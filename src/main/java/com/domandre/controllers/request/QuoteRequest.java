@@ -1,6 +1,6 @@
 package com.domandre.controllers.request;
 
-import com.domandre.entities.enums.Section;
+import com.domandre.enums.Section;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
